@@ -11,7 +11,10 @@ on:
 
 jobs:
   build:
-
+    env:
+      DB_DATABASE: groep3
+      DB_USER: root
+      DB_PASSWORD: root
     runs-on: ubuntu-latest
 
     steps:
@@ -22,5 +25,11 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - name: Set up MySQL
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean install
+    - name: Test with Maven
+      run: mvn -B test
