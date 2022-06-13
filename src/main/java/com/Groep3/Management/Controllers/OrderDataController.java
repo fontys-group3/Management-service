@@ -15,13 +15,13 @@ public class OrderDataController {
     @Autowired
     private OrderDataService orderService;
 
-    @GetMapping("/orders/fooditems")
-    public @ResponseBody Iterable<OrderData> getAllFood() {
-        return orderService.test2();
+    @GetMapping("/orderdata/all")
+    public @ResponseBody Iterable<OrderData> getOrderData() {
+        return orderService.getOrderData();
     }
 
-    @PostMapping("/order")
-    public @ResponseBody OrderData addNewOrder(@RequestBody Order order) {
-        return orderService.test();
+    @PostMapping("/orderdata/neworder")
+    public @ResponseBody OrderData addNewOrderData(@RequestBody Order order) {
+        return orderService.addNewOrderData(order);
     }
 }
